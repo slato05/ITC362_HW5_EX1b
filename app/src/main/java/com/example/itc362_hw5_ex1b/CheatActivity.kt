@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.itc362_hw5_ex1b.databinding.ActivityCheatBinding
 
@@ -13,7 +14,9 @@ const val EXTRA_ANSWER_SHOWN = "com.example.itc362_hw5_ex1b.answer_shown"
 class CheatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCheatBinding
+    private val cheatViewModel: CheatViewModel by viewModels()
     private var answerIsTrue = false
+    private var answerText = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +25,23 @@ class CheatActivity : AppCompatActivity() {
 
         answerIsTrue = intent.getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false)
 
+        //Moved outside showAnswerButton.setOnClickListener for accessibility
+        answerText = when {
+            answerIsTrue -> R.string.true_button
+            else -> R.string.false_button
+        }
+
         binding.showAnswerButton.setOnClickListener {
-            val answerText = when {
-                answerIsTrue -> R.string.true_button
-                else -> R.string.false_button
-            }
             binding.answerTextView.setText(answerText)
-            setAnswerShownResult(true)
+            cheatViewModel.isAnswerShown = true
+            setAnswerShownResult(cheatViewModel.isAnswerShown)
+        }
+
+        //Check  from saved state if answer is shown upon activity creation
+        if (cheatViewModel.isAnswerShown) {
+            //If answer was shown
+            binding.answerTextView.setText(answerText) //set answer text in activity_cheat
+            setAnswerShownResult(cheatViewModel.isAnswerShown) //set the EXTRA_ANSWER_SHOWN to the saved state
         }
     }
 

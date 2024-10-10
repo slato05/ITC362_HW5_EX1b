@@ -39,4 +39,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
         currentIndex = (currentIndex + 1) % questionBank.size
         Log.d(TAG, "Current question index: $currentIndex")
     }
+
+
+
 }
