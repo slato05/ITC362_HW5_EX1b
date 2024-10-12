@@ -1,5 +1,7 @@
 package com.example.itc362_hw5_ex1b
 
+//Reference resource: https://forums.bignerdranch.com/t/possible-solution-to-challenge-closing-loopholes-for-cheaters/17068
+
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
