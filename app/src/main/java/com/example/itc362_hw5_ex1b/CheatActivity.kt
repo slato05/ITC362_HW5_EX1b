@@ -33,11 +33,11 @@ class CheatActivity : AppCompatActivity() {
 
         binding.showAnswerButton.setOnClickListener {
             binding.answerTextView.setText(answerText)
-            cheatViewModel.isAnswerShown = true
+            cheatViewModel.isAnswerShown = true //set saved state variable to true
             setAnswerShownResult(cheatViewModel.isAnswerShown)
         }
 
-        //Check  from saved state if answer is shown upon activity creation
+        //Check from saved state if answer is shown upon activity creation
         if (cheatViewModel.isAnswerShown) {
             //If answer was shown
             binding.answerTextView.setText(answerText) //set answer text in activity_cheat
